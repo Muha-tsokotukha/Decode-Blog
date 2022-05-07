@@ -1,13 +1,13 @@
 <header class="header container">
 	<div class="header-logo">
-	    <a href="/">Decode Blog</a>	
+	    <a href="/">CodeBlog</a>	
 	</div>
 	<form class="header-search" method="GET" action="/">
 		<input type="hidden" name="page" value="0">
-		<input type="text" class="input-search" placeholder="Поиск по блогам" name="q">
+		<input type="text" class="input-search" placeholder="<%=lnJSON[ln]["Поиск по блогам"]%>" name="q">
 		<button class="button button-search" type="submit">
 			<img src="/images/search.svg" alt="">	
-			Найти
+			<%=lnJSON[ln]["Найти"]%>
 		</button>
 	</form>
 	<div>
@@ -22,8 +22,12 @@
 		} else {
 		%>
         <div class="button-group">
-            <a href="/register" class="button">Регистрация</a>
-            <a href="/login" class="button">Вход</a>
+			
+			<a href="<%=toKz%>">KZ</a>
+			<a href="<%=toEn%>">EN</a>
+			<a href="<%=toRu%>">RU</a>
+            <a href="/register" class="button"><%=lnJSON[ln]["Регистрация"]%></a>
+            <a href="/login" class="button"><%=lnJSON[ln]["Вход"]%></a>
         </div>
 
 		<%

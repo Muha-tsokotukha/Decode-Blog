@@ -8,6 +8,7 @@ require('./server/config/passport');
 
 const {mongooseStore} = require('./server/config/session');
 const app = express();
+const lnJSON = require("./server/config/language/index.json");
 
 // app.use(logger('dev'));
 app.use(express.static(__dirname + '/public'));
@@ -19,6 +20,24 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use((req,res,next) =>{
     res.locals.moment = moment;
+    res.locals.ln = "ru";
+    res.locals.lnJSON = lnJSON;
+    let urlPath = req.url;
+    let dash = req.url.split("/");
+    if(dash.length >= 2) {
+        let code = dash[1];
+        if(code !== '' && lnJSON.hasOwnProperty(code)) {
+            res.locals.ln = code;
+            dash.shift();
+            dash.shift();
+
+            urlPath = "/" + dash.join('/');
+        }
+    }
+
+    res.locals.toRu = urlPath;
+    res.locals.toEn = "/en" + urlPath;
+    res.locals.toKz = "/kz" + urlPath;
     next();
 })
 app.set("view engine", "ejs");
